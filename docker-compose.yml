@@ -1,0 +1,36 @@
+services:
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prediction-migrate
+    command: ["sh", "-c", "cd /app/src && alembic upgrade head"]
+    volumes:
+      - db_data:/app/src/data
+    env_file:
+      - .env
+    environment:
+      APP_CONFIG__DB__URL: sqlite+aiosqlite:////app/src/data/users.db
+    restart: "no"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: prediction-api
+    restart: unless-stopped
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    ports:
+      - "8000:8000"
+    volumes:
+      - db_data:/app/src/data
+      - ./src/logs:/app/src/logs
+    env_file:
+      - .env
+    environment:
+      APP_CONFIG__DB__URL: sqlite+aiosqlite:////app/src/data/users.db
+
+volumes:
+  db_data:

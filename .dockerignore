@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[codz]
+*.pyo
+*.pyd
+.Python
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+
+# Тестирование
+.pytest_cache/
+htmlcov/
+.coverage
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Базы данных SQLite (будут в volume)
+*.db
+*.sqlite3
+
+# Логи
+logs/
+*.log
+
+# Alembic кэш
+migrations/__pycache__/
+migrations/versions/__pycache__/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Прочее
+README.md
+.env.example
+
